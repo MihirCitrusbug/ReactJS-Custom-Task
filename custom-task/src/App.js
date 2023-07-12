@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+import React, { useReducer } from 'react';
+import { Routes, Route } from 'react-router-dom'
 import './App.css';
+import Home from './components/Home';
+import DataList from './components/DataList';
+import ViewData from './components/ViewData';
+
+export const userContext = React.createContext()
+
+const initUserState = []
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'addUser': {
+      return [...state, action.user]
+      // return { ...state, state.user:  }
+    }
+
+    default: return state
+  }
+}
+
 
 function App() {
+  const [users, dispatch] = useReducer(reducer, initUserState)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <userContext.Provider value={[users, dispatch]}>
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/data-list' element={<DataList />}></Route>
+        <Route path='/view-data' element={<ViewData />}></Route>
+      </Routes>
+    </userContext.Provider >
   );
 }
 
