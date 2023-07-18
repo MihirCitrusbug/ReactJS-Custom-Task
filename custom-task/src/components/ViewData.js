@@ -1,9 +1,17 @@
-import { useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { userContext } from '../App'
 import { useNavigate } from 'react-router-dom';
+import CustomElements from './CustomElements';
+import Gender from './Gender';
+import Hobbies from './Hobbies';
+import Options from './Options';
+
 
 const ViewData = () => {
     const navigate = useNavigate()
+    const technologies = ["python", "php", "html", "css", "javascript"]
+    const hobbies = ["cricket", "reading", "traveling", "movies"]
+    const gender = ["male", "female", "other"]
     const [users,] = useContext(userContext)
     let queryString = window.location.search;
     queryString = queryString.replace('?', '');
@@ -28,13 +36,6 @@ const ViewData = () => {
             }
         });
 
-        // * Select Gender data
-        const genderListElem = document.querySelectorAll('input[name="gender"]')
-        genderListElem.forEach(element => {
-            if (element.value == resultArr[0].gender) {
-                element.checked = true
-            }
-        });
     }, [])
     const dataList = () => {
         navigate("/data-list")
@@ -46,61 +47,38 @@ const ViewData = () => {
                 <>
                     <h2 className="mb-2">User Information</h2>
                     <form method="post" action="" noValidate>
-                        <div className="mb-3">
-                            <label for="firstName" className="form-label">First name</label>
-                            <input type="text" disabled value={resultArr[0].firstName} className="form-control" id="firstName" />
+                        <CustomElements
+                            id="firstName" type="text" text="First name" disabled="true"
+                            value={resultArr[0].firstName} onChange='' ErrorState=''
+                        />
 
-                        </div>
+                        <CustomElements
+                            id="lastName" type="text" text="Last name" disabled="true"
+                            value={resultArr[0].lastName} onChange='' ErrorState=''
+                        />
 
-                        <div className="mb-3">
-                            <label for="lastName" className="form-label">Last name</label>
-                            <input type="text" disabled value={resultArr[0].lastName} className="form-control" id="lastName" />
-                        </div>
+                        <CustomElements
+                            id="email" type="email" text="Email address" disabled="true"
+                            value={resultArr[0].email} onChange='' ErrorState=''
+                        />
 
-                        <div className="mb-3">
-                            <label for="email" className="form-label">Email address</label>
-                            <input type="email" disabled value={resultArr[0].email} className="form-control" id="email" />
-                        </div>
-
-                        <div className="mb-3">
-                            <label for="phoneNo" className="form-label">Phone no.</label>
-                            <input type="text" disabled value={resultArr[0].phoneNo} id="phoneNo" className="form-control" />
-                        </div>
+                        <CustomElements
+                            id="phoneNo" type="number" text="Phone no." disabled="true"
+                            value={resultArr[0].phoneNo} onChange='' ErrorState=''
+                        />
 
                         <label className="form-label">Gender</label>
                         <div className="input-group mb-3">
-                            <div className="form-check m-0">
-                                <input className="form-check-input" disabled type="radio" name="gender" id="male" value="male" />
-                                <label className="form-check-label" for="male">Male</label>
-                            </div>
-                            <div className="form-check ms-2">
-                                <input className="form-check-input" disabled type="radio" name="gender" id="female" value="female" />
-                                <label className="form-check-label" for="female">Female</label>
-                            </div>
-                            <div className="form-check ms-2">
-                                <input className="form-check-input" disabled type="radio" name="gender" id="other" value="other" />
-                                <label className="form-check-label" for="other">Other</label>
-                            </div>
+                            {gender.map(text => {
+                                return resultArr[0].gender === text ? <Gender text={text} disabled="true" checked="true" onChange='' /> : <Gender text={text} disabled="true" checked='' onChange='' />
+                            })}
                         </div>
 
                         <label className="form-label">Hobby</label>
                         <div className="input-group mb-3">
-                            <div className="form-check">
-                                <input className="form-check-input" disabled value="cricket" type="checkbox" name="hobby" />
-                                <label className="form-check-label" for="cricket">Cricket</label>
-                            </div>
-                            <div className="form-check ms-2">
-                                <input className="form-check-input" disabled value="reading" type="checkbox" name="hobby" />
-                                <label className="form-check-label" for="reading">Reading</label>
-                            </div>
-                            <div className="form-check ms-2">
-                                <input className="form-check-input" disabled value="traveling" type="checkbox" name="hobby" />
-                                <label className="form-check-label" for="traveling">Traveling</label>
-                            </div>
-                            <div className="form-check ms-2">
-                                <input className="form-check-input" disabled value="movies" type="checkbox" name="hobby" />
-                                <label className="form-check-label" for="movies">Movies</label>
-                            </div>
+                            {hobbies.map(hobby => {
+                                return resultArr[0].hobby === hobby ? <Hobbies text={hobby} disabled={true} checked123={true} onClick='' /> : <Hobbies text={hobby} disabled={true} checked123={false} onClick='' />
+                            })}
                         </div>
 
                         <div className="row  mb-3 ">
@@ -109,6 +87,9 @@ const ViewData = () => {
                                     <label>Technology</label>
                                     <select name="technology" id="technology" disabled multiple
                                         className="label ui selection fluid dropdown">
+                                        {technologies.map(technology => {
+                                            return <Options value={technology} selected='' />
+                                        })}
                                         <option value="python">Python</option>
                                         <option value="php">PHP</option>
                                         <option value="html">HTML</option>
@@ -126,4 +107,4 @@ const ViewData = () => {
     )
 }
 
-export default ViewData
+export default React.memo(ViewData)

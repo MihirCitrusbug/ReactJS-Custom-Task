@@ -1,13 +1,56 @@
-import { useContext, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { userContext } from '../App'
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const DataList = () => {
     const navigate = useNavigate()
-    const [users,] = useContext(userContext)
+    const [users, dispatch] = useContext(userContext)
+    const [editButtonFlag, setEditButtonFlag] = useState(true)
+    const [deleteButtonFlag, setDeleteButtonFlag] = useState(true)
     const back = () => {
         navigate("/")
     }
+
+    const enabledDisabledButtons = () => {
+        const selectedElm = document.querySelectorAll('input[name="checkbox"]:checked')
+        if (selectedElm.length === 0) {
+            setEditButtonFlag(true)
+            setDeleteButtonFlag(true)
+        }
+        else if (selectedElm.length === 1) {
+            setEditButtonFlag(false)
+            setDeleteButtonFlag(false)
+        }
+        else {
+            setDeleteButtonFlag(true)
+        }
+    }
+
+    const editUser = () => {
+        const selectedElm = document.querySelectorAll('input[name="checkbox"]:checked')
+        let emails = ''
+        selectedElm.forEach((element, index) => {
+            emails += `${element.value},`
+        });
+        navigate(`/edit-user?emails=${emails.replace(/.$/, '')}`)
+        // window.location = `/slider.html?emails=${emails.replace(/.$/, '')}`
+    }
+
+    const deleteUser = () => {
+        Swal.fire('Delete User?', 'Are you sure want to delete?', 'question')
+            .then(() => {
+                const selectedElm = document.querySelectorAll('input[name="checkbox"]:checked')
+                const deletedUser = selectedElm[0].getAttribute('email')
+                dispatch({
+                    type: 'deleteUser',
+                    user: {
+                        email: deletedUser,
+                    }
+                })
+            });
+    }
+
     return (
         <>
             <h1>User List</h1>
@@ -27,8 +70,8 @@ const DataList = () => {
                 <tbody id="tableBodyData">
                     {users && users.map(user => {
                         return (
-                            <tr draggable="true" ondragstart="start()" ondragover="dragover()">
-                                <td><input className="form-check-input" type="checkbox" name="checkbox" /></td>
+                            <tr draggable="true">
+                                <td><input className="form-check-input" onChange={enabledDisabledButtons} value={user.email} type="checkbox" name="checkbox" /></td>
                                 <td>{user.firstName}</td>
                                 <td>{user.lastName}</td>
                                 <td>{user.email}</td>
@@ -41,11 +84,11 @@ const DataList = () => {
                     })}
                 </tbody>
             </table>
-            <button type="button" id="editBtn" disabled className="btn btn-warning">Edit</button>
-            <button type="button" id="deleteBtn" disabled className="btn btn-danger">Delete</button>
+            <button type="button" id="editBtn" disabled={editButtonFlag} onClick={editUser} className="btn btn-warning b-">Edit</button>
+            <button type="button" id="deleteBtn" disabled={deleteButtonFlag} onClick={deleteUser} className="btn btn-danger">Delete</button>
             <button className="btn btn-primary" onClick={back}>Back</button>
         </>
     )
 }
 
-export default DataList
+export default React.memo(DataList)
