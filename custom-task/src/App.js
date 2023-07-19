@@ -14,7 +14,6 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'addUser': {
       return [...state, action.user]
-      // return { ...state, state.user:  }
     }
     case 'editUser': {
       return state.map(user => user.email === action.user.email ? action.user : user)
@@ -22,7 +21,6 @@ const reducer = (state, action) => {
     case 'deleteUser': {
       return state.filter(user => user.email !== action.user.email)
     }
-
     default: return state
   }
 }
