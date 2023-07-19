@@ -1,16 +1,24 @@
 import React from 'react'
 
-const Hobbies = ({ text, onClick, disabled, checked123 }) => {
+const Hobbies = ({ id, ErrorState, onClick, hobbyList, disabled }) => {
+    const hobbies = ["cricket", "reading", "traveling", "movies"]
     const capitalizeFirstLetter = (str) => {
 
         // converting first letter to uppercase
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     return (
-        <div className="form-check ml-3">
-            <input className="form-check-input" checked={checked123} disabled={disabled} onClick={onClick} type="checkbox" name="hobby"
-                value={text} id={text} />
-            <label className="form-check-label" htmlFor={text}>{capitalizeFirstLetter(text)}</label>
+        <div className="input-group mb-3">
+            {hobbies.map(hobby => {
+                return (
+                    <div className="form-check ml-3">
+                        <input className="form-check-input" disabled={disabled} onClick={onClick} type="checkbox" name={id}
+                            value={hobby} id={hobby + id} checked={hobbyList && hobbyList.includes(hobby)} />
+                        <label className="form-check-label" htmlFor={hobby + id}>{capitalizeFirstLetter(hobby)}</label>
+                    </div>
+                )
+            })}
+            {ErrorState.flag && (<div className="invalid-feedback2">{ErrorState.message}</div>)}
         </div>
     )
 }

@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { userContext } from '../App'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { userContext } from '../App'
+import TableRows from './TableRows';
 
 const DataList = () => {
     const navigate = useNavigate()
@@ -38,17 +39,27 @@ const DataList = () => {
     }
 
     const deleteUser = () => {
-        Swal.fire('Delete User?', 'Are you sure want to delete?', 'question')
-            .then(() => {
-                const selectedElm = document.querySelectorAll('input[name="checkbox"]:checked')
-                const deletedUser = selectedElm[0].getAttribute('email')
+        const selectedElm = document.querySelectorAll('input[name="checkbox"]:checked')
+        const deletedUser = selectedElm[0].value
+        Swal.fire({
+            title: 'Do you want to Delete ' + deletedUser,
+            showDenyButton: true,
+            confirmButtonText: 'YES',
+        }).then((result) => {
+
+            if (result.isConfirmed) {
                 dispatch({
                     type: 'deleteUser',
                     user: {
                         email: deletedUser,
                     }
                 })
-            });
+                Swal.fire('User Deleted', deletedUser + ' is deleted successfully!', 'success')
+                    .then(() => {
+                        navigate("/data-list")
+                    })
+            }
+        })
     }
 
     return (
@@ -68,20 +79,7 @@ const DataList = () => {
                     </tr>
                 </thead>
                 <tbody id="tableBodyData">
-                    {users && users.map(user => {
-                        return (
-                            <tr draggable="true">
-                                <td><input className="form-check-input" onChange={enabledDisabledButtons} value={user.email} type="checkbox" name="checkbox" /></td>
-                                <td>{user.firstName}</td>
-                                <td>{user.lastName}</td>
-                                <td>{user.email}</td>
-                                <td>{user.gender}</td>
-                                <td>{user.hobby}</td>
-                                <td>{user.technology}</td>
-                                <td><button type="button" onClick={() => navigate(`/view-data?email=${user.email}`)} className="btn btn-primary">View</button></td>
-                            </tr>
-                        )
-                    })}
+                    <TableRows users={users} onChange={enabledDisabledButtons} />
                 </tbody>
             </table>
             <button type="button" id="editBtn" disabled={editButtonFlag} onClick={editUser} className="btn btn-warning b-">Edit</button>
