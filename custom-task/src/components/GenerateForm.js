@@ -1,91 +1,89 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 import { userContext } from '../App'
-import Options from './Options';
 import CustomElements from './CustomElements';
 import Gender from './Gender';
+import Hobbies from './Hobbies';
+import SelectElement from './SelectElement';
 
 
 const GenerateForm = ({ email, active }) => {
-
-    const technologies = ["python", "php", "html", "css", "javascript"]
-    const hobbies = ["cricket", "reading", "traveling", "movies"]
-    const gender = ["male", "female", "other"]
-    const [users,] = useContext(userContext)
+    const navigate = useNavigate()
+    const [users, dispatch] = useContext(userContext)
     let userData = users.filter(user => user.email === email)[0]
-    const hobbyList = userData.hobby.split(',')
-    const technologyList = userData.technology.split(',')
-    const [firstNameError, setFirstNameError] = useState({ value: userData.firstName, message: '', flag: true });
-    const [lastNameError, setLastNameError] = useState({ value: userData.lastName, message: '', flag: true });
-    const [phoneNoError, setPhoneNoError] = useState({ value: userData.phoneNo, message: '', flag: true });
-    const [genderError, setGenderError] = useState({ value: userData.gender, message: '', flag: true });
-    const [hobbyError, setHobbyError] = useState({ value: userData.hobby, message: '', flag: true });
-    const [technologyError, setTechnologyError] = useState({ value: userData.technology, message: '', flag: true });
+    const [firstNameState, setFirstNameState] = useState({ value: userData.firstName, message: '', flag: true });
+    const [lastNameState, setLastNameState] = useState({ value: userData.lastName, message: '', flag: true });
+    const [phoneNoState, setPhoneNoState] = useState({ value: userData.phoneNo, message: '', flag: true });
+    const [genderState, setGenderState] = useState({ value: userData.gender, message: '', flag: true });
+    const [hobbyState, setHobbyState] = useState({ value: userData.hobby, message: '', flag: true });
+    const [technologyState, setTechnologyState] = useState({ value: userData.technology, message: '', flag: true });
 
-    const checkFirstName = (firstName) => {
+    const checkFirstName = useCallback((firstName) => {
         if (firstName === "") {
-            setFirstNameError({ ...firstNameError, value: '', message: 'First name is required.', flag: true })
+            setFirstNameState({ ...firstNameState, value: '', message: 'First name is required.', flag: true })
             return false;
         } else {
             if (firstName.length > 20) {
-                setFirstNameError({ ...firstNameError, value: '', message: 'Max 20 character.', flag: true })
+                setFirstNameState({ ...firstNameState, value: '', message: 'Max 20 character.', flag: true })
                 return false;
             }
-            setFirstNameError({ ...firstNameError, value: firstName, message: '', flag: false })
+            setFirstNameState({ ...firstNameState, value: firstName, message: '', flag: false })
             return firstName
         }
-    }
+    }, [firstNameState])
 
-    const checkLastName = (lastName) => {
+    const checkLastName = useCallback((lastName) => {
         if (lastName === "") {
-            setLastNameError({ ...lastNameError, value: '', message: 'Last name is required.', flag: true })
+            setLastNameState({ ...lastNameState, value: '', message: 'Last name is required.', flag: true })
             return false;
         } else {
             if (lastName.length > 20) {
-                setLastNameError({ ...lastNameError, value: '', message: 'Max 20 character.', flag: true })
+                setLastNameState({ ...lastNameState, value: '', message: 'Max 20 character.', flag: true })
                 return false;
             }
-            setLastNameError({ ...lastNameError, value: lastName, message: '', flag: false })
+            setLastNameState({ ...lastNameState, value: lastName, message: '', flag: false })
         }
-    }
+    }, [lastNameState])
 
-    const checkPhoneNo = (phoneNo) => {
+    const checkPhoneNo = useCallback((phoneNo) => {
         const phoneNo_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
         if (phoneNo === "" || phoneNo === null) {
-            setPhoneNoError({ ...phoneNoError, value: phoneNo, message: 'Phone No is required.', flag: true })
+            setPhoneNoState({ ...phoneNoState, value: phoneNo, message: 'Phone No is required.', flag: true })
             return false
         }
         else if (phoneNo.match(phoneNo_regex)) {
-            setPhoneNoError({ ...phoneNoError, value: phoneNo, message: '', flag: false })
+            setPhoneNoState({ ...phoneNoState, value: phoneNo, message: '', flag: false })
             return phoneNo
         }
         else {
-            setPhoneNoError({ ...phoneNoError, value: phoneNo, message: 'Invalid Phone No!', flag: true })
+            setPhoneNoState({ ...phoneNoState, value: phoneNo, message: 'Invalid Phone No!', flag: true })
             return false
         }
-    }
+    }, [phoneNoState])
 
-    const checkGender = (gender) => {
-        setGenderError({ ...genderError, value: gender, message: '', flag: false })
-    }
+    const checkGender = useCallback((gender) => {
+        setGenderState({ ...genderState, value: gender, message: '', flag: false })
+    }, [genderState])
 
-    const checkHobby = () => {
-        const hobbyListElem = document.querySelectorAll('input[name="hobby"]:checked')
+    const checkHobby = useCallback((e) => {
+        const hobbyListElem = document.querySelectorAll(`input[name="hobby_${email}"]:checked`)
         if (hobbyListElem.length > 0) {
             let hobby = ''
             hobbyListElem.forEach(element => {
                 hobby += `${element.value},`
             });
-            setHobbyError({ ...genderError, value: hobby.replace(/.$/, ''), message: '', flag: false })
+            setHobbyState({ ...hobbyState, value: hobby.replace(/.$/, ''), message: '', flag: false })
             return hobby.replace(/.$/, '')
 
         } else {
-            setHobbyError({ ...genderError, value: '', message: 'Please select any one Hobby!', flag: true })
+            setHobbyState({ ...hobbyState, value: '', message: 'Please select any one Hobby!', flag: true })
             return false
         }
-    }
+    }, [email, hobbyState])
 
-    const checkTechnology = () => {
-        const technologyOpt = document.getElementById('technology').options
+    const checkTechnology = useCallback((e) => {
+        const technologyOpt = document.getElementById('technology_' + email).options
         if (technologyOpt.selectedIndex !== -1) {
             let technology = ''
             for (let i = 0; i < technologyOpt.length; i++) {
@@ -93,19 +91,44 @@ const GenerateForm = ({ email, active }) => {
                     technology += `${technologyOpt[i].value},`
                 }
             }
-            setTechnologyError({ ...genderError, value: technology.replace(/.$/, ''), message: '', flag: false })
+            setTechnologyState({ ...technologyState, value: technology.replace(/.$/, ''), message: '', flag: false })
             return technology.replace(/.$/, '')
         }
         else {
-            setTechnologyError({ ...genderError, value: '', message: 'Please select any one Technology!', flag: true })
+            setTechnologyState({ ...technologyState, value: '', message: 'Please select any one Technology!', flag: true })
             return false
         }
-    }
+    }, [email, technologyState])
 
     const updateUser = () => {
-        console.log("Update User")
-    }
 
+        if (firstNameState.value && lastNameState.value && phoneNoState.value && genderState.value && hobbyState.value && technologyState.value) {
+            dispatch({
+                type: 'editUser',
+                user: {
+                    firstName: firstNameState.value,
+                    lastName: lastNameState.value,
+                    email: email,
+                    phoneNo: phoneNoState.value,
+                    gender: genderState.value,
+                    hobby: hobbyState.value,
+                    technology: technologyState.value
+                }
+            })
+            Swal.fire('User Updated', 'User Data Updated successfully!', 'success')
+                .then(() => {
+                    navigate("/data-list")
+                });
+        }
+        else {
+            firstNameState.value || setFirstNameState({ ...firstNameState, value: '', message: firstNameState.message || 'First name is required.', flag: true })
+            lastNameState.value || setLastNameState({ ...lastNameState, value: '', message: lastNameState.message || 'Last name is required.', flag: true })
+            phoneNoState.value || setPhoneNoState({ ...phoneNoState, value: '', message: phoneNoState.message || 'Phone No is required.', flag: true })
+            genderState.value || setGenderState({ ...genderState, value: '', message: 'Please select your Gender!', flag: true })
+            hobbyState.value || setHobbyState({ ...hobbyState, value: '', message: hobbyState.message || 'Please select any one Hobby!', flag: true })
+            technologyState.value || setTechnologyState({ ...technologyState, value: '', message: technologyState.message || 'Please select any one Technology!', flag: true })
+        }
+    }
 
     return (
         <>
@@ -113,77 +136,54 @@ const GenerateForm = ({ email, active }) => {
                 <form className="container" method="post" action="" noValidate>
                     <CustomElements
                         id="firstName" type="text" text="First name"
-                        value={firstNameError.value}
+                        value={firstNameState.value}
                         onChange={(e) => checkFirstName(e.target.value.trim())}
-                        ErrorState={firstNameError}
+                        ErrorState={firstNameState}
                     />
 
                     <CustomElements
                         id="lastName" type="text" text="Last name"
-                        value={lastNameError.value}
+                        value={lastNameState.value}
                         onChange={(e) => checkLastName(e.target.value.trim())}
-                        ErrorState={lastNameError}
+                        ErrorState={lastNameState}
                     />
 
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email address</label>
-                        <input type="email" readOnly defaultValue={userData.email} className="form-control" />
-                    </div>
+                    <CustomElements
+                        id="email" type="email" text="Email address" disabled="true"
+                        value={userData.email} ErrorState=''
+                    />
 
                     <CustomElements
                         id="phoneNo" type="number" text="Phone no."
-                        value={phoneNoError.value}
+                        value={phoneNoState.value}
                         onChange={(e) => checkPhoneNo(e.target.value.trim())}
-                        ErrorState={phoneNoError}
+                        ErrorState={phoneNoState}
                     />
 
-                    <label className="form-label">Gender-{userData.gender}</label>
-
+                    <label className="form-label">Gender</label>
                     <div className="input-group mb-3">
-                        {gender.map(text => {
-                            return genderError.value === text ? <Gender text={text} checked="true" onChange={(e) => checkGender(e.target.value)} /> : <Gender text={text} checked='' onChange={(e) => checkGender(e.target.value)} />
-                        })}
-                        {genderError.flag && (<div className="invalid-feedback2">{genderError.message}</div>)}
+                        <Gender
+                            gender={genderState.value}
+                            onChange={(e) => checkGender(e.target.value)}
+                            ErrorState={genderState}
+                        />
                     </div>
 
-                    <div className="row  mb-3 ">
-                        <div className="col-lg-4 col-md-6 d-flex  align-items-center">
-                            <div className="inline w-100 field">
-                                <label>Technology-{userData.technology}</label>
-                                <select className="label ui selection fluid dropdown" onChange={checkTechnology} id="technology" name="technology" multiple>
-                                    {technologies.map(technology => {
-                                        return <Options value={technology} selected={technologyList.includes(technology)} />
-                                    })}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    {technologyError.flag && (<div className="invalid-feedback2">{technologyError.message}</div>)}
+                    <SelectElement
+                        id={"technology_" + email}
+                        technologyList={technologyState.value.split(',')}
+                        onChange={(e) => checkTechnology(e)}
+                        ErrorState={technologyState}
+                    />
 
                     <label className="form-label">Hobby</label>
-                    <div className="input-group mb-3">
-                        <div className="form-check ml-3">
-                            <input className="form-check-input" onClick={checkHobby} type="checkbox" name="hobby"
-                                defaultValue="cricket" checked={hobbyList.includes('cricket')} />
-                            <label className="form-check-label" htmlFor="cricket">Cricket</label>
-                        </div>
-                        <div className="form-check ml-3">
-                            <input className="form-check-input" onClick={checkHobby} type="checkbox" name="hobby"
-                                defaultValue="reading" checked={hobbyList.includes('reading')} />
-                            <label className="form-check-label" htmlFor="reading">Reading</label>
-                        </div>
-                        <div className="form-check ml-3">
-                            <input className="form-check-input" onClick={checkHobby} type="checkbox" name="hobby"
-                                defaultValue="traveling" checked={hobbyList.includes('traveling')} />
-                            <label className="form-check-label" htmlFor="traveling">Traveling</label>
-                        </div>
-                        <div className="form-check ml-3">
-                            <input className="form-check-input" onClick={checkHobby} type="checkbox" name="hobby"
-                                defaultValue="movies" checked={hobbyList.includes('movies')} />
-                            <label className="form-check-label" htmlFor="movies">Movies</label>
-                        </div>
-                        {hobbyError.flag && (<div className="invalid-feedback2">{hobbyError.message}</div>)}
-                    </div>
+                    <Hobbies
+                        id={"hobby_" + email}
+                        hobbyList={hobbyState.value.split(',')}
+                        onClick={(e) => checkHobby(e)}
+                        ErrorState={hobbyState}
+                    />
+
 
                     <button type="button" onClick={updateUser} className="btn btn-success">Update</button>
                 </form>

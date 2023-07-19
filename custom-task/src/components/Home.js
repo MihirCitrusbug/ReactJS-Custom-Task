@@ -1,23 +1,22 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react'
 import { userContext } from '../App'
 import { useNavigate } from 'react-router-dom';
-import Options from './Options';
+import Swal from 'sweetalert2'
 import Hobbies from './Hobbies';
 import Gender from './Gender';
 import CustomElements from './CustomElements';
+import SelectElement from './SelectElement';
 
 
 const Home = () => {
-    const technologies = ["python", "php", "html", "css", "javascript"]
-    const hobbies = ["cricket", "reading", "traveling", "movies"]
     const gender = ["male", "female", "other"]
-    const [firstNameError, setFirstNameError] = useState({ value: '', message: '', flag: true });
-    const [lastNameError, setLastNameError] = useState({ value: '', message: '', flag: true });
-    const [emailError, setEmailError] = useState({ value: '', message: '', flag: true });
-    const [phoneNoError, setPhoneNoError] = useState({ value: '', message: '', flag: true });
-    const [genderError, setGenderError] = useState({ value: '', message: '', flag: true });
-    const [hobbyError, setHobbyError] = useState({ value: '', message: '', flag: true });
-    const [technologyError, setTechnologyError] = useState({ value: '', message: '', flag: true });
+    const [firstNameState, serFirstNameState] = useState({ value: '', message: '', flag: true });
+    const [lastNameState, setLastNameState] = useState({ value: '', message: '', flag: true });
+    const [emailState, setEmailState] = useState({ value: '', message: '', flag: true });
+    const [phoneNoState, setPhoneNoState] = useState({ value: '', message: '', flag: true });
+    const [genderState, setGenderState] = useState({ value: '', message: '', flag: true });
+    const [hobbyState, setHobbyState] = useState({ value: '', message: '', flag: true });
+    const [technologyState, setTechnologyState] = useState({ value: '', message: '', flag: true });
     const [, dispatch] = useContext(userContext)
 
 
@@ -33,66 +32,66 @@ const Home = () => {
 
     const checkFirstName = useCallback((firstName) => {
         if (firstName === "") {
-            setFirstNameError({ ...firstNameError, value: '', message: 'First name is required.', flag: true })
+            serFirstNameState({ ...firstNameState, value: '', message: 'First name is required.', flag: true })
             return false;
         } else {
             if (firstName.length > 20) {
-                setFirstNameError({ ...firstNameError, value: '', message: 'Max 20 character.', flag: true })
+                serFirstNameState({ ...firstNameState, value: '', message: 'Max 20 character.', flag: true })
                 return false;
             }
-            setFirstNameError({ ...firstNameError, value: firstName, message: '', flag: false })
+            serFirstNameState({ ...firstNameState, value: firstName, message: '', flag: false })
             return firstName
         }
-    }, [firstNameError])
+    }, [firstNameState])
 
     const checkLastName = useCallback((lastName) => {
         if (lastName === "") {
-            setLastNameError({ ...lastNameError, value: '', message: 'Last name is required.', flag: true })
+            setLastNameState({ ...lastNameState, value: '', message: 'Last name is required.', flag: true })
             return false;
         } else {
             if (lastName.length > 20) {
-                setLastNameError({ ...lastNameError, value: '', message: 'Max 20 character.', flag: true })
+                setLastNameState({ ...lastNameState, value: '', message: 'Max 20 character.', flag: true })
                 return false;
             }
-            setLastNameError({ ...lastNameError, value: lastName, message: '', flag: false })
+            setLastNameState({ ...lastNameState, value: lastName, message: '', flag: false })
         }
-    }, [lastNameError])
+    }, [lastNameState])
 
     const checkEmail = useCallback((email) => {
         const email_regex = /^([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@([0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)*|\[((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|IPv6:((((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){6}|::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){5}|[0-9A-Fa-f]{0,4}::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){4}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):)?(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){3}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,2}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){2}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,3}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,4}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::)((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3})|(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3})|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,5}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3})|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,6}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::)|(?!IPv6:)[0-9A-Za-z-]*[0-9A-Za-z]:[!-Z^-~]+)])$/
         if (email === "" || email === null) {
-            setEmailError({ ...emailError, value: '', message: 'Email is required.', flag: true });
+            setEmailState({ ...emailState, value: '', message: 'Email is required.', flag: true });
             return false
         }
         else if (email.match(email_regex)) {
-            setEmailError({ ...emailError, value: email, message: '', flag: false });
+            setEmailState({ ...emailState, value: email, message: '', flag: false });
             return email
         }
         else {
-            setEmailError({ ...emailError, value: '', message: 'Invalid E-mail address!', flag: true });
+            setEmailState({ ...emailState, value: '', message: 'Invalid E-mail address!', flag: true });
             return false
         }
-    }, [emailError])
+    }, [emailState])
 
     const checkPhoneNo = useCallback((phoneNo) => {
         const phoneNo_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
         if (phoneNo === "" || phoneNo === null) {
-            setPhoneNoError({ ...phoneNoError, value: '', message: 'Phone No is required.', flag: true })
+            setPhoneNoState({ ...phoneNoState, value: '', message: 'Phone No is required.', flag: true })
             return false
         }
         else if (phoneNo.match(phoneNo_regex)) {
-            setPhoneNoError({ ...phoneNoError, value: phoneNo, message: '', flag: false })
+            setPhoneNoState({ ...phoneNoState, value: phoneNo, message: '', flag: false })
             return phoneNo
         }
         else {
-            setPhoneNoError({ ...phoneNoError, value: '', message: 'Invalid Phone No!', flag: true })
+            setPhoneNoState({ ...phoneNoState, value: '', message: 'Invalid Phone No!', flag: true })
             return false
         }
-    }, [phoneNoError])
+    }, [phoneNoState])
 
     const checkGender = useCallback((gender) => {
-        setGenderError({ ...genderError, value: gender, message: '', flag: false })
-    }, [genderError])
+        setGenderState({ ...genderState, value: gender, message: '', flag: false })
+    }, [genderState])
 
     const checkHobby = useCallback(() => {
         const hobbyListElem = document.querySelectorAll('input[name="hobby"]:checked')
@@ -101,14 +100,14 @@ const Home = () => {
             hobbyListElem.forEach(element => {
                 hobby += `${element.value},`
             });
-            setHobbyError({ ...genderError, value: hobby.replace(/.$/, ''), message: '', flag: false })
+            setHobbyState({ ...hobbyState, value: hobby.replace(/.$/, ''), message: '', flag: false })
             return hobby.replace(/.$/, '')
 
         } else {
-            setHobbyError({ ...genderError, value: '', message: 'Please select any one Hobby!', flag: true })
+            setHobbyState({ ...hobbyState, value: '', message: 'Please select any one Hobby!', flag: true })
             return false
         }
-    }, [genderError])
+    }, [hobbyState])
 
     const checkTechnology = useCallback(() => {
         const technologyOpt = document.getElementById('technology').options
@@ -119,39 +118,43 @@ const Home = () => {
                     technology += `${technologyOpt[i].value},`
                 }
             }
-            setTechnologyError({ ...technologyError, value: technology.replace(/.$/, ''), message: '', flag: false })
+            setTechnologyState({ ...technologyState, value: technology.replace(/.$/, ''), message: '', flag: false })
             return technology.replace(/.$/, '')
         }
         else {
-            setTechnologyError({ ...technologyError, value: '', message: 'Please select any one Technology!', flag: true })
+            setTechnologyState({ ...technologyState, value: '', message: 'Please select any one Technology!', flag: true })
             return false
         }
-    }, [technologyError])
+    }, [technologyState])
 
     const submitForm = () => {
-        if (!firstNameError.flag && !lastNameError.flag && !emailError.flag && !phoneNoError.flag && !genderError.flag && !hobbyError.flag && !technologyError.flag) {
+        if (!firstNameState.flag && !lastNameState.flag && !emailState.flag && !phoneNoState.flag && !genderState.flag && !hobbyState.flag && !technologyState.flag) {
             dispatch({
                 type: 'addUser',
                 user: {
-                    firstName: firstNameError.value,
-                    lastName: lastNameError.value,
-                    email: emailError.value,
-                    phoneNo: phoneNoError.value,
-                    gender: genderError.value,
-                    hobby: hobbyError.value,
-                    technology: technologyError.value
+                    firstName: firstNameState.value,
+                    lastName: lastNameState.value,
+                    email: emailState.value,
+                    phoneNo: phoneNoState.value,
+                    gender: genderState.value,
+                    hobby: hobbyState.value,
+                    technology: technologyState.value
                 }
             })
-            navigate("/data-list");
+            Swal.fire('User Registered', 'New User Registered successfully!', 'success')
+                .then(() => {
+                    navigate("/data-list")
+                });
+
         }
         else {
-            !firstNameError.flag || setFirstNameError({ ...firstNameError, value: '', message: firstNameError.message || 'First name is required.', flag: true })
-            !lastNameError.flag || setLastNameError({ ...lastNameError, value: '', message: lastNameError.message || 'Last name is required.', flag: true })
-            !emailError.flag || setEmailError({ ...emailError, value: '', message: emailError.message || 'Email is required.', flag: true })
-            !phoneNoError.flag || setPhoneNoError({ ...phoneNoError, value: '', message: phoneNoError.message || 'Phone No is required.', flag: true })
-            !genderError.flag || setGenderError({ ...genderError, value: '', message: 'Please select your Gender!', flag: true })
-            !hobbyError.flag || setHobbyError({ ...hobbyError, value: '', message: hobbyError.message || 'Please select any one Hobby!', flag: true })
-            !technologyError.flag || setTechnologyError({ ...technologyError, value: '', message: technologyError.message || 'Please select any one Technology!', flag: true })
+            !firstNameState.flag || serFirstNameState({ ...firstNameState, value: '', message: firstNameState.message || 'First name is required.', flag: true })
+            !lastNameState.flag || setLastNameState({ ...lastNameState, value: '', message: lastNameState.message || 'Last name is required.', flag: true })
+            !emailState.flag || setEmailState({ ...emailState, value: '', message: emailState.message || 'Email is required.', flag: true })
+            !phoneNoState.flag || setPhoneNoState({ ...phoneNoState, value: '', message: phoneNoState.message || 'Phone No is required.', flag: true })
+            !genderState.flag || setGenderState({ ...genderState, value: '', message: 'Please select your Gender!', flag: true })
+            !hobbyState.flag || setHobbyState({ ...hobbyState, value: '', message: hobbyState.message || 'Please select any one Hobby!', flag: true })
+            !technologyState.flag || setTechnologyState({ ...technologyState, value: '', message: technologyState.message || 'Please select any one Technology!', flag: true })
         }
     }
 
@@ -166,57 +169,47 @@ const Home = () => {
                 <CustomElements
                     id="firstName" type="text" text="First name"
                     onChange={(e) => checkFirstName(e.target.value.trim())}
-                    ErrorState={firstNameError}
+                    ErrorState={firstNameState}
                 />
 
                 <CustomElements
                     id="lastName" type="text" text="Last name"
                     onChange={(e) => checkLastName(e.target.value.trim())}
-                    ErrorState={lastNameError}
+                    ErrorState={lastNameState}
                 />
 
                 <CustomElements
                     id="email" type="email" text="Email address"
                     onChange={(e) => checkEmail(e.target.value.trim())}
-                    ErrorState={emailError}
+                    ErrorState={emailState}
                 />
 
                 <CustomElements
                     id="phoneNo" type="number" text="Phone no."
                     onChange={(e) => checkPhoneNo(e.target.value.trim())}
-                    ErrorState={phoneNoError}
+                    ErrorState={phoneNoState}
                 />
 
                 <label className="form-label">Gender</label>
-                <div className="input-group mb-3">
-                    {gender.map(text => {
-                        return <Gender text={text} onChange={(e) => checkGender(e.target.value)} />
-                    })}
-                    {genderError.flag && (<div className="invalid-feedback2">{genderError.message}</div>)}
-                </div>
+                <Gender
+                    gender={genderState.value}
+                    onChange={(e) => checkGender(e.target.value)}
+                    ErrorState={genderState}
+                />
 
                 <label className="form-label">Hobby</label>
-                <div className="input-group mb-3">
-                    {hobbies.map(hobby => {
-                        return <Hobbies text={hobby} onClick={checkHobby} />
-                    })}
-                    {hobbyError.flag && (<div className="invalid-feedback2">{hobbyError.message}</div>)}
-                </div>
+                <Hobbies
+                    id="hobby"
+                    onClick={checkHobby}
+                    ErrorState={hobbyState}
+                />
 
-                <div className="row  mb-3 ">
-                    <div className="col-lg-4 col-md-6 d-flex  align-items-center">
-                        <div className="inline w-100 field">
-                            <label>Technology</label>
-                            <select name="technology" id="technology" onChange={checkTechnology} multiple
-                                className="label ui selection fluid dropdown">
-                                {technologies.map(technology => {
-                                    return <Options value={technology} selected='' />
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                {technologyError.flag && (<div className="invalid-feedback2">{technologyError.message}</div>)}
+                <SelectElement
+                    id="technology"
+                    technologyList=''
+                    onChange={checkTechnology}
+                    ErrorState={technologyState}
+                />
 
                 <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
                 <button onClick={dataList} className="btn btn-success">View List</button>
