@@ -13,6 +13,7 @@ const EditData = () => {
     const dataList = () => {
         navigate("/data-list")
     }
+
     return (
         <>
             <div id="carouselExampleRide" className="carousel slide container mt-xl-5" data-bs-ride="true">

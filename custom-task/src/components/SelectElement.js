@@ -3,6 +3,7 @@ import Options from './Options'
 
 const SelectElement = ({ id, onChange, technologyList, ErrorState, disabled }) => {
     const technologies = ["python", "php", "html", "css", "javascript"]
+
     return (
         <div className="row  mb-3 ">
             <div className="col-lg-4 col-md-6 d-flex  align-items-center">

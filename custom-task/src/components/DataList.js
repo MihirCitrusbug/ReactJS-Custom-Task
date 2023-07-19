@@ -44,7 +44,7 @@ const DataList = () => {
         Swal.fire({
             title: 'Do you want to Delete ' + deletedUser,
             showDenyButton: true,
-            confirmButtonText: 'YES',
+            confirmButtonText: 'Yes',
         }).then((result) => {
 
             if (result.isConfirmed) {
@@ -82,9 +82,9 @@ const DataList = () => {
                     <TableRows users={users} onChange={enabledDisabledButtons} />
                 </tbody>
             </table>
-            <button type="button" id="editBtn" disabled={editButtonFlag} onClick={editUser} className="btn btn-warning b-">Edit</button>
-            <button type="button" id="deleteBtn" disabled={deleteButtonFlag} onClick={deleteUser} className="btn btn-danger">Delete</button>
-            <button className="btn btn-primary" onClick={back}>Back</button>
+            <button type="button" id="editBtn" disabled={editButtonFlag} onClick={editUser} className="btn btn-warning ms-2">Edit</button>
+            <button type="button" id="deleteBtn" disabled={deleteButtonFlag} onClick={deleteUser} className="btn btn-danger ms-2">Delete</button>
+            <button className="btn btn-primary ms-2" onClick={back}>Back</button>
         </>
     )
 }

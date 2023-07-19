@@ -3,9 +3,7 @@ import React from 'react'
 const Gender = ({ gender, onChange, ErrorState, disabled }) => {
     const genderList = ["male", "female", "other"]
 
-    const capitalizeFirstLetter = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
     return (
         <div className="input-group mb-3">

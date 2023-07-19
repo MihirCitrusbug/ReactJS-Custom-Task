@@ -1,6 +1,7 @@
 import React from 'react'
 
 const CustomElements = ({ id, type, text, value, disabled, onChange, ErrorState }) => {
+
     return (
         <div className="mb-3">
             <label htmlFor={id} className="form-label">{text}</label>

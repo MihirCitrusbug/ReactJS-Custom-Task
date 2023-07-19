@@ -184,7 +184,6 @@ const GenerateForm = ({ email, active }) => {
                         ErrorState={hobbyState}
                     />
 
-
                     <button type="button" onClick={updateUser} className="btn btn-success">Update</button>
                 </form>
             </div>

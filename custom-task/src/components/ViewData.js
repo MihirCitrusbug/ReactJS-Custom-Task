@@ -9,14 +9,12 @@ import SelectElement from './SelectElement';
 
 const ViewData = () => {
     const navigate = useNavigate()
-    const gender = ["male", "female", "other"]
     const [users,] = useContext(userContext)
     let queryString = window.location.search;
     queryString = queryString.replace('?', '');
     let params = queryString.split('=');
     let email = params[1];
-    let resultArr = users.filter(user => user.email === email)
-
+    let resultArr = users.filter(user => user.email === email)[0]
 
     const dataList = () => {
         navigate("/data-list")
@@ -30,35 +28,36 @@ const ViewData = () => {
                     <form method="post" action="" noValidate>
                         <CustomElements
                             id="firstName" type="text" text="First name" disabled="true"
-                            value={resultArr[0].firstName} onChange='' ErrorState=''
+                            value={resultArr.firstName} onChange='' ErrorState=''
                         />
 
                         <CustomElements
                             id="lastName" type="text" text="Last name" disabled="true"
-                            value={resultArr[0].lastName} onChange='' ErrorState=''
+                            value={resultArr.lastName} onChange='' ErrorState=''
                         />
 
                         <CustomElements
                             id="email" type="email" text="Email address" disabled="true"
-                            value={resultArr[0].email} onChange='' ErrorState=''
+                            value={resultArr.email} onChange='' ErrorState=''
                         />
 
                         <CustomElements
                             id="phoneNo" type="number" text="Phone no." disabled="true"
-                            value={resultArr[0].phoneNo} onChange='' ErrorState=''
+                            value={resultArr.phoneNo} onChange='' ErrorState=''
                         />
 
                         <label className="form-label">Gender</label>
-                        <div className="input-group mb-3">
-                            {gender.map(text => {
-                                return resultArr[0].gender === text ? <Gender text={text} disabled="true" checked="true" onChange='' /> : <Gender text={text} disabled="true" checked='' onChange='' />
-                            })}
-                        </div>
+                        <Gender
+                            gender={resultArr.gender}
+                            disabled={true}
+                            onChange=''
+                            ErrorState=''
+                        />
 
                         <label className="form-label">Hobby</label>
                         <Hobbies
                             id={"hobby"}
-                            hobbyList={resultArr[0].hobby.split(',')}
+                            hobbyList={resultArr.hobby.split(',')}
                             onClick=''
                             ErrorState=''
                             disabled={true}
@@ -66,7 +65,7 @@ const ViewData = () => {
 
                         <SelectElement
                             id={"technology"}
-                            technologyList={resultArr[0].technology.split(',')}
+                            technologyList={resultArr.technology.split(',')}
                             onChange=''
                             ErrorState=''
                             disabled={true}

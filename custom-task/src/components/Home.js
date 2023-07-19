@@ -1,15 +1,14 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react'
-import { userContext } from '../App'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
-import Hobbies from './Hobbies';
-import Gender from './Gender';
+import { userContext } from '../App'
 import CustomElements from './CustomElements';
+import Gender from './Gender';
+import Hobbies from './Hobbies';
 import SelectElement from './SelectElement';
 
 
 const Home = () => {
-    const gender = ["male", "female", "other"]
     const [firstNameState, serFirstNameState] = useState({ value: '', message: '', flag: true });
     const [lastNameState, setLastNameState] = useState({ value: '', message: '', flag: true });
     const [emailState, setEmailState] = useState({ value: '', message: '', flag: true });
@@ -58,6 +57,7 @@ const Home = () => {
     }, [lastNameState])
 
     const checkEmail = useCallback((email) => {
+        // eslint-disable-next-line no-empty-character-class
         const email_regex = /^([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@([0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)*|\[((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|IPv6:((((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){6}|::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){5}|[0-9A-Fa-f]{0,4}::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){4}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):)?(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){3}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,2}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){2}|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,3}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,4}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::)((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3})|(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3})|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,5}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3})|(((0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}):){0,6}(0|[1-9A-Fa-f][0-9A-Fa-f]{0,3}))?::)|(?!IPv6:)[0-9A-Za-z-]*[0-9A-Za-z]:[!-Z^-~]+)])$/
         if (email === "" || email === null) {
             setEmailState({ ...emailState, value: '', message: 'Email is required.', flag: true });
@@ -211,8 +211,8 @@ const Home = () => {
                     ErrorState={technologyState}
                 />
 
-                <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
-                <button onClick={dataList} className="btn btn-success">View List</button>
+                <button type="button" onClick={submitForm} className="btn btn-primary ms-2">Submit</button>
+                <button onClick={dataList} className="btn btn-success ms-2">View List</button>
             </form>
         </>
     )

@@ -2,11 +2,9 @@ import React from 'react'
 
 const Hobbies = ({ id, ErrorState, onClick, hobbyList, disabled }) => {
     const hobbies = ["cricket", "reading", "traveling", "movies"]
-    const capitalizeFirstLetter = (str) => {
 
-        // converting first letter to uppercase
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
     return (
         <div className="input-group mb-3">
             {hobbies.map(hobby => {
