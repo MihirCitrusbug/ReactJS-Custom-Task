@@ -6,9 +6,9 @@ const TableRows = ({ users, onChange }) => {
 
     return (
         <>
-            {users && users.map(user => {
+            {users && users.map((user, index) => {
                 return (
-                    <tr draggable="true">
+                    <tr draggable="true" key={index}>
                         <td><input className="form-check-input" onChange={onChange} value={user.email} type="checkbox" name="checkbox" /></td>
                         <td>{user.firstName}</td>
                         <td>{user.lastName}</td>

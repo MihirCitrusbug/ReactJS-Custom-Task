@@ -100,6 +100,10 @@ const GenerateForm = ({ email, active }) => {
         }
     }, [email, technologyState])
 
+    const doNothing = () => {
+        return
+    }
+
     const updateUser = () => {
 
         if (firstNameState.value && lastNameState.value && phoneNoState.value && genderState.value && hobbyState.value && technologyState.value) {
@@ -149,7 +153,8 @@ const GenerateForm = ({ email, active }) => {
                     />
 
                     <CustomElements
-                        id="email" type="email" text="Email address" disabled="true"
+                        id="email" type="email" text="Email address" disabled={true}
+                        onChange={doNothing}
                         value={userData.email} ErrorState=''
                     />
 

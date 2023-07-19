@@ -7,9 +7,9 @@ const Gender = ({ gender, onChange, ErrorState, disabled }) => {
 
     return (
         <div className="input-group mb-3">
-            {genderList.map(text => {
+            {genderList.map((text, index) => {
                 return (
-                    <div className="form-check ml-3">
+                    <div className="form-check ml-3" key={index}>
                         <input className="form-check-input" disabled={disabled} onChange={onChange} type="radio" name="gender" id={text}
                             value={text} checked={gender === text} />
                         <label className="form-check-label" htmlFor={text}>{capitalizeFirstLetter(text)}</label>

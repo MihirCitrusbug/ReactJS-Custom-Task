@@ -7,11 +7,11 @@ const Hobbies = ({ id, ErrorState, onClick, hobbyList, disabled }) => {
 
     return (
         <div className="input-group mb-3">
-            {hobbies.map(hobby => {
+            {hobbies.map((hobby, index) => {
                 return (
-                    <div className="form-check ml-3">
+                    <div className="form-check ml-3" key={index}>
                         <input className="form-check-input" disabled={disabled} onClick={onClick} type="checkbox" name={id}
-                            value={hobby} id={hobby + id} checked={hobbyList && hobbyList.includes(hobby)} />
+                            value={hobby} id={hobby + id} defaultChecked={hobbyList && hobbyList.includes(hobby)} />
                         <label className="form-check-label" htmlFor={hobby + id}>{capitalizeFirstLetter(hobby)}</label>
                     </div>
                 )

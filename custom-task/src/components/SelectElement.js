@@ -11,8 +11,8 @@ const SelectElement = ({ id, onChange, technologyList, ErrorState, disabled }) =
                     <label>Technology</label>
                     <select name={id} disabled={disabled} id={id} onChange={onChange} multiple
                         className="label ui selection fluid dropdown">
-                        {technologies.map(technology => {
-                            return <Options value={technology} selected={technologyList && technologyList.includes(technology)} />
+                        {technologies.map((technology, index) => {
+                            return <Options value={technology} key={index} isSelected={technologyList && technologyList.includes(technology)} />
                         })}
                     </select>
                 </div>

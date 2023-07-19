@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Options = ({ value, selected }) => {
+const Options = ({ value, isSelected }) => {
 
     const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
     return (
-        <option value={value} selected={selected}>
+        <option value={value} selected={isSelected}>
             {capitalizeFirstLetter(value)}
         </option>
     )

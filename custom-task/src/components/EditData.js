@@ -19,7 +19,7 @@ const EditData = () => {
                 <h2 className="mb-2">Update data</h2>
                 <div className="carousel-inner sliderEditForm">
                     {emailString.split(',').map((email, index) => {
-                        return <GenerateForm email={email} active={index === 0 ? 'active' : ''} />
+                        return <GenerateForm email={email} key={index} active={index === 0 ? 'active' : ''} />
                     })}
                 </div>
                 <div className="container mt-3">

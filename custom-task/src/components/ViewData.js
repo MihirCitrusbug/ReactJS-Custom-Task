@@ -19,6 +19,9 @@ const ViewData = () => {
     const dataList = () => {
         navigate("/data-list")
     }
+    const doNothing = () => {
+        return
+    }
 
     return (
         <>
@@ -27,30 +30,30 @@ const ViewData = () => {
                     <h2 className="mb-2">User Information</h2>
                     <form method="post" action="" noValidate>
                         <CustomElements
-                            id="firstName" type="text" text="First name" disabled="true"
-                            value={resultArr.firstName} onChange='' ErrorState=''
+                            id="firstName" type="text" text="First name" disabled={true}
+                            value={resultArr.firstName} onChange={doNothing} ErrorState=''
                         />
 
                         <CustomElements
-                            id="lastName" type="text" text="Last name" disabled="true"
-                            value={resultArr.lastName} onChange='' ErrorState=''
+                            id="lastName" type="text" text="Last name" disabled={true}
+                            value={resultArr.lastName} onChange={doNothing} ErrorState=''
                         />
 
                         <CustomElements
-                            id="email" type="email" text="Email address" disabled="true"
-                            value={resultArr.email} onChange='' ErrorState=''
+                            id="email" type="email" text="Email address" disabled={true}
+                            value={resultArr.email} onChange={doNothing} ErrorState=''
                         />
 
                         <CustomElements
-                            id="phoneNo" type="number" text="Phone no." disabled="true"
-                            value={resultArr.phoneNo} onChange='' ErrorState=''
+                            id="phoneNo" type="number" text="Phone no." disabled={true}
+                            value={resultArr.phoneNo} onChange={doNothing} ErrorState=''
                         />
 
                         <label className="form-label">Gender</label>
                         <Gender
                             gender={resultArr.gender}
                             disabled={true}
-                            onChange=''
+                            onChange={doNothing}
                             ErrorState=''
                         />
 
@@ -58,15 +61,15 @@ const ViewData = () => {
                         <Hobbies
                             id={"hobby"}
                             hobbyList={resultArr.hobby.split(',')}
-                            onClick=''
+                            onClick={doNothing}
                             ErrorState=''
                             disabled={true}
                         />
 
                         <SelectElement
-                            id={"technology"}
+                            id="technology"
                             technologyList={resultArr.technology.split(',')}
-                            onChange=''
+                            onChange={doNothing}
                             ErrorState=''
                             disabled={true}
                         />
