@@ -9,6 +9,8 @@ import DataList from './components/DataList';
 import EditData from './components/EditData'
 import Home from './components/Home';
 import ViewData from './components/ViewData';
+import CounterTask from './components/CounterTask';
+import CounterThree from './components/CounterThree';
 
 // * Create Custom Context(userContext)
 export const userContext = React.createContext()
@@ -35,14 +37,16 @@ const reducer = (state, action) => {
 function App() {
   const [users, dispatch] = useReducer(reducer, initUserState)
   return (
-    <userContext.Provider value={[users, dispatch]}>
-      <Routes>
-        <Route path='/' element={<Home />}></Route>
-        <Route path='/data-list' element={<DataList />}></Route>
-        <Route path='/view-data' element={<ViewData />}></Route>
-        <Route path='/edit-user' element={<EditData />}></Route>
-      </Routes>
-    </userContext.Provider >
+    <CounterThree />
+    // <CounterTask />
+    // <userContext.Provider value={[users, dispatch]}>
+    //   <Routes>
+    //     <Route path='/' element={<Home />}></Route>
+    //     <Route path='/data-list' element={<DataList />}></Route>
+    //     <Route path='/view-data' element={<ViewData />}></Route>
+    //     <Route path='/edit-user' element={<EditData />}></Route>
+    //   </Routes>
+    // </userContext.Provider >
   );
 }
 
