@@ -5,7 +5,7 @@ import React, { useContext, useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
-// * CUstom Components
+// * Custom Components
 import { userContext } from '../App'
 import CustomElements from './CustomElements';
 import Gender from './Gender';
@@ -174,46 +174,46 @@ const Home = () => {
                 <CustomElements
                     id="firstName" type="text" text="First name"
                     onChange={(e) => checkFirstName(e.target.value.trim())}
-                    ErrorState={firstNameState}
+                    InputFieldState={firstNameState}
                 />
 
                 <CustomElements
                     id="lastName" type="text" text="Last name"
                     onChange={(e) => checkLastName(e.target.value.trim())}
-                    ErrorState={lastNameState}
+                    InputFieldState={lastNameState}
                 />
 
                 <CustomElements
                     id="email" type="email" text="Email address"
                     onChange={(e) => checkEmail(e.target.value.trim())}
-                    ErrorState={emailState}
+                    InputFieldState={emailState}
                 />
 
                 <CustomElements
                     id="phoneNo" type="number" text="Phone no."
                     onChange={(e) => checkPhoneNo(e.target.value.trim())}
-                    ErrorState={phoneNoState}
+                    InputFieldState={phoneNoState}
                 />
 
                 <label className="form-label">Gender</label>
                 <Gender
                     gender={genderState.value}
                     onChange={(e) => checkGender(e.target.value)}
-                    ErrorState={genderState}
+                    RadioFieldState={genderState}
                 />
 
                 <label className="form-label">Hobby</label>
                 <Hobbies
                     id="hobby"
                     onClick={checkHobby}
-                    ErrorState={hobbyState}
+                    GenderFieldState={hobbyState}
                 />
 
                 <SelectElement
                     id="technology"
                     technologyList=''
                     onChange={checkTechnology}
-                    ErrorState={technologyState}
+                    SelectFieldState={technologyState}
                 />
 
                 <button type="button" onClick={submitForm} className="btn btn-primary ms-2">Submit</button>

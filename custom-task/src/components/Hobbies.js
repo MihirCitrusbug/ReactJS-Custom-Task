@@ -1,7 +1,7 @@
 // * React Components
 import React from 'react'
 
-const Hobbies = ({ id, ErrorState, onClick, hobbyList, disabled }) => {
+const Hobbies = ({ id, GenderFieldState, onClick, hobbyList, disabled }) => {
     const hobbies = ["cricket", "reading", "traveling", "movies"]
 
     const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
@@ -17,7 +17,7 @@ const Hobbies = ({ id, ErrorState, onClick, hobbyList, disabled }) => {
                     </div>
                 )
             })}
-            {ErrorState.flag && (<div className="invalid-feedback2">{ErrorState.message}</div>)}
+            {GenderFieldState.flag && (<div className="invalid-feedback2">{GenderFieldState.message}</div>)}
         </div>
     )
 }

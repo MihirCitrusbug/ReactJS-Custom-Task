@@ -4,7 +4,7 @@ import React from 'react'
 // * Custom Components
 import Options from './Options'
 
-const SelectElement = ({ id, onChange, technologyList, ErrorState, disabled }) => {
+const SelectElement = ({ id, onChange, technologyList, SelectFieldState, disabled }) => {
     const technologies = ["python", "php", "html", "css", "javascript"]
 
     return (
@@ -20,7 +20,7 @@ const SelectElement = ({ id, onChange, technologyList, ErrorState, disabled }) =
                     </select>
                 </div>
             </div>
-            {ErrorState.flag && (<div className="invalid-feedback2">{ErrorState.message}</div>)}
+            {SelectFieldState.flag && (<div className="invalid-feedback2">{SelectFieldState.message}</div>)}
         </div>
     )
 }

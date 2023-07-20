@@ -149,27 +149,27 @@ const GenerateForm = ({ email, active }) => {
                         id="firstName" type="text" text="First name"
                         value={firstNameState.value}
                         onChange={(e) => checkFirstName(e.target.value.trim())}
-                        ErrorState={firstNameState}
+                        InputFieldState={firstNameState}
                     />
 
                     <CustomElements
                         id="lastName" type="text" text="Last name"
                         value={lastNameState.value}
                         onChange={(e) => checkLastName(e.target.value.trim())}
-                        ErrorState={lastNameState}
+                        InputFieldState={lastNameState}
                     />
 
                     <CustomElements
                         id="email" type="email" text="Email address" disabled={true}
                         onChange={doNothing}
-                        value={userData.email} ErrorState=''
+                        value={userData.email} InputFieldState=''
                     />
 
                     <CustomElements
                         id="phoneNo" type="number" text="Phone no."
                         value={phoneNoState.value}
                         onChange={(e) => checkPhoneNo(e.target.value.trim())}
-                        ErrorState={phoneNoState}
+                        InputFieldState={phoneNoState}
                     />
 
                     <label className="form-label">Gender</label>
@@ -177,7 +177,7 @@ const GenerateForm = ({ email, active }) => {
                         <Gender
                             gender={genderState.value}
                             onChange={(e) => checkGender(e.target.value)}
-                            ErrorState={genderState}
+                            RadioFieldState={genderState}
                         />
                     </div>
 
@@ -185,7 +185,7 @@ const GenerateForm = ({ email, active }) => {
                         id={"technology_" + email}
                         technologyList={technologyState.value.split(',')}
                         onChange={(e) => checkTechnology(e)}
-                        ErrorState={technologyState}
+                        SelectFieldState={technologyState}
                     />
 
                     <label className="form-label">Hobby</label>
@@ -193,7 +193,7 @@ const GenerateForm = ({ email, active }) => {
                         id={"hobby_" + email}
                         hobbyList={hobbyState.value.split(',')}
                         onClick={(e) => checkHobby(e)}
-                        ErrorState={hobbyState}
+                        GenderFieldState={hobbyState}
                     />
 
                     <button type="button" onClick={updateUser} className="btn btn-success">Update</button>

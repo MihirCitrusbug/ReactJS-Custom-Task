@@ -1,13 +1,19 @@
+// * React Components
 import React, { useReducer } from 'react';
+
+// * Third party Components
 import { Routes, Route } from 'react-router-dom'
+
+// * Custom Components
 import DataList from './components/DataList';
 import EditData from './components/EditData'
 import Home from './components/Home';
 import ViewData from './components/ViewData';
-import './App.css';
 
+// * Create Custom Context(userContext)
 export const userContext = React.createContext()
 
+// * Initial State for Reducer
 const initUserState = []
 
 const reducer = (state, action) => {

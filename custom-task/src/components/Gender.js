@@ -1,7 +1,7 @@
 // * React Components
 import React from 'react'
 
-const Gender = ({ gender, onChange, ErrorState, disabled }) => {
+const Gender = ({ gender, onChange, RadioFieldState, disabled }) => {
     const genderList = ["male", "female", "other"]
 
     const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
@@ -16,7 +16,7 @@ const Gender = ({ gender, onChange, ErrorState, disabled }) => {
                         <label className="form-check-label" htmlFor={text}>{capitalizeFirstLetter(text)}</label>
                     </div>)
             })}
-            {ErrorState.flag && (<div className="invalid-feedback2">{ErrorState.message}</div>)}
+            {RadioFieldState.flag && (<div className="invalid-feedback2">{RadioFieldState.message}</div>)}
         </div >
     )
 }

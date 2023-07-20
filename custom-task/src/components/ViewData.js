@@ -37,22 +37,22 @@ const ViewData = () => {
                     <form method="post" action="" noValidate>
                         <CustomElements
                             id="firstName" type="text" text="First name" disabled={true}
-                            value={resultArr.firstName} onChange={doNothing} ErrorState=''
+                            value={resultArr.firstName} onChange={doNothing} InputFieldState=''
                         />
 
                         <CustomElements
                             id="lastName" type="text" text="Last name" disabled={true}
-                            value={resultArr.lastName} onChange={doNothing} ErrorState=''
+                            value={resultArr.lastName} onChange={doNothing} InputFieldState=''
                         />
 
                         <CustomElements
                             id="email" type="email" text="Email address" disabled={true}
-                            value={resultArr.email} onChange={doNothing} ErrorState=''
+                            value={resultArr.email} onChange={doNothing} InputFieldState=''
                         />
 
                         <CustomElements
                             id="phoneNo" type="number" text="Phone no." disabled={true}
-                            value={resultArr.phoneNo} onChange={doNothing} ErrorState=''
+                            value={resultArr.phoneNo} onChange={doNothing} InputFieldState=''
                         />
 
                         <label className="form-label">Gender</label>
@@ -60,7 +60,7 @@ const ViewData = () => {
                             gender={resultArr.gender}
                             disabled={true}
                             onChange={doNothing}
-                            ErrorState=''
+                            RadioFieldState=''
                         />
 
                         <label className="form-label">Hobby</label>
@@ -68,7 +68,7 @@ const ViewData = () => {
                             id={"hobby"}
                             hobbyList={resultArr.hobby.split(',')}
                             onClick={doNothing}
-                            ErrorState=''
+                            GenderFieldState=''
                             disabled={true}
                         />
 
@@ -76,7 +76,7 @@ const ViewData = () => {
                             id="technology"
                             technologyList={resultArr.technology.split(',')}
                             onChange={doNothing}
-                            ErrorState=''
+                            SelectFieldState=''
                             disabled={true}
                         />
 
