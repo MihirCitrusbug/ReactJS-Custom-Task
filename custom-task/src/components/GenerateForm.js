@@ -115,7 +115,7 @@ const GenerateForm = ({ email, active }) => {
 
         if (firstNameState.value && lastNameState.value && phoneNoState.value && genderState.value && hobbyState.value && technologyState.value) {
             dispatch({
-                type: 'editUser',
+                type: 'EDIT_USER',
                 user: {
                     firstName: firstNameState.value,
                     lastName: lastNameState.value,

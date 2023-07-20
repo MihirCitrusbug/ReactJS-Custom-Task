@@ -127,7 +127,7 @@ const Home = () => {
     const submitForm = () => {
         if (!firstNameState.flag && !lastNameState.flag && !emailState.flag && !phoneNoState.flag && !genderState.flag && !hobbyState.flag && !technologyState.flag) {
             dispatch({
-                type: 'addUser',
+                type: 'ADD_USER',
                 user: {
                     firstName: firstNameState.value,
                     lastName: lastNameState.value,

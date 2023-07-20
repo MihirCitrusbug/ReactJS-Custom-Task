@@ -38,11 +38,10 @@ const DataList = () => {
     const editUser = () => {
         const selectedElm = document.querySelectorAll('input[name="checkbox"]:checked')
         let emails = ''
-        selectedElm.forEach((element, index) => {
+        selectedElm.forEach(element => {
             emails += `${element.value},`
         });
         navigate(`/edit-user?emails=${emails.replace(/.$/, '')}`)
-        // window.location = `/slider.html?emails=${emails.replace(/.$/, '')}`
     }
 
     const deleteUser = () => {
@@ -56,7 +55,7 @@ const DataList = () => {
 
             if (result.isConfirmed) {
                 dispatch({
-                    type: 'deleteUser',
+                    type: 'DELETE_USER',
                     user: {
                         email: deletedUser,
                     }

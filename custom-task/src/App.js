@@ -18,13 +18,13 @@ const initUserState = []
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'addUser': {
+    case 'ADD_USER': {
       return [...state, action.user]
     }
-    case 'editUser': {
+    case 'EDIT_USER': {
       return state.map(user => user.email === action.user.email ? action.user : user)
     }
-    case 'deleteUser': {
+    case 'DELETE_USER': {
       return state.filter(user => user.email !== action.user.email)
     }
     default: return state
