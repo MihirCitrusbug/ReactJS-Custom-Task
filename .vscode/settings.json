@@ -21,5 +21,6 @@
     "peacock.color": "#42b883",
     "cSpell.words": [
         "Swal"
-    ]
+    ],
+    "editor.guides.bracketPairs": true
 }
