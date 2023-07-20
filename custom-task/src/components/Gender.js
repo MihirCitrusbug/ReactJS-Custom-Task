@@ -1,3 +1,4 @@
+// * React Components
 import React from 'react'
 
 const Gender = ({ gender, onChange, ErrorState, disabled }) => {

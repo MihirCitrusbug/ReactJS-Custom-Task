@@ -1,3 +1,4 @@
+// * React Components
 import React from 'react'
 
 const Hobbies = ({ id, ErrorState, onClick, hobbyList, disabled }) => {

@@ -1,6 +1,11 @@
+// * React Components
 import React, { useContext, useState, useEffect, useCallback } from 'react'
+
+// * Third party Components
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+
+// * CUstom Components
 import { userContext } from '../App'
 import CustomElements from './CustomElements';
 import Gender from './Gender';
@@ -9,6 +14,9 @@ import SelectElement from './SelectElement';
 
 
 const Home = () => {
+    const navigate = useNavigate()
+    const [, dispatch] = useContext(userContext)
+
     const [firstNameState, serFirstNameState] = useState({ value: '', message: '', flag: true });
     const [lastNameState, setLastNameState] = useState({ value: '', message: '', flag: true });
     const [emailState, setEmailState] = useState({ value: '', message: '', flag: true });
@@ -16,18 +24,7 @@ const Home = () => {
     const [genderState, setGenderState] = useState({ value: '', message: '', flag: true });
     const [hobbyState, setHobbyState] = useState({ value: '', message: '', flag: true });
     const [technologyState, setTechnologyState] = useState({ value: '', message: '', flag: true });
-    const [, dispatch] = useContext(userContext)
 
-
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        const phoneInputField = document.querySelector("#phoneNo");
-        window.intlTelInput(phoneInputField, {
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-    }, [])
 
     const checkFirstName = useCallback((firstName) => {
         if (firstName === "") {
@@ -161,6 +158,14 @@ const Home = () => {
     const dataList = () => {
         navigate("/data-list");
     }
+
+    useEffect(() => {
+        const phoneInputField = document.querySelector("#phoneNo");
+        window.intlTelInput(phoneInputField, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }, [])
 
     return (
         <>

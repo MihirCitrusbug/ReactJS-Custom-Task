@@ -1,6 +1,11 @@
+// * React Components
 import React, { useContext, useState, useCallback } from 'react'
+
+// * Third party Components
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+
+// * Custom Components
 import { userContext } from '../App'
 import CustomElements from './CustomElements';
 import Gender from './Gender';
@@ -11,6 +16,7 @@ import SelectElement from './SelectElement';
 const GenerateForm = ({ email, active }) => {
     const navigate = useNavigate()
     const [users, dispatch] = useContext(userContext)
+
     let userData = users.filter(user => user.email === email)[0]
     const [firstNameState, setFirstNameState] = useState({ value: userData.firstName, message: '', flag: true });
     const [lastNameState, setLastNameState] = useState({ value: userData.lastName, message: '', flag: true });
@@ -18,6 +24,7 @@ const GenerateForm = ({ email, active }) => {
     const [genderState, setGenderState] = useState({ value: userData.gender, message: '', flag: true });
     const [hobbyState, setHobbyState] = useState({ value: userData.hobby, message: '', flag: true });
     const [technologyState, setTechnologyState] = useState({ value: userData.technology, message: '', flag: true });
+
 
     const checkFirstName = useCallback((firstName) => {
         if (firstName === "") {

@@ -1,14 +1,21 @@
+// * React Components
 import React, { useContext, useState } from 'react'
+
+// * Third party Components
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+
+// * Custom Components
 import { userContext } from '../App'
 import TableRows from './TableRows';
 
 const DataList = () => {
     const navigate = useNavigate()
+
     const [users, dispatch] = useContext(userContext)
     const [editButtonFlag, setEditButtonFlag] = useState(true)
     const [deleteButtonFlag, setDeleteButtonFlag] = useState(true)
+
     const back = () => {
         navigate("/")
     }

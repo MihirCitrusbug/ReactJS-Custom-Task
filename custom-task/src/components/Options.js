@@ -1,3 +1,4 @@
+// * React Components
 import React from 'react'
 
 const Options = ({ value, isSelected }) => {

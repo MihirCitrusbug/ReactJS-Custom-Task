@@ -1,5 +1,10 @@
+// * React Components
 import React, { useContext } from 'react'
+
+// * Third party Components
 import { useNavigate } from 'react-router-dom';
+
+// * Custom Components
 import { userContext } from '../App'
 import CustomElements from './CustomElements';
 import Gender from './Gender';
@@ -10,6 +15,7 @@ import SelectElement from './SelectElement';
 const ViewData = () => {
     const navigate = useNavigate()
     const [users,] = useContext(userContext)
+
     let queryString = window.location.search;
     queryString = queryString.replace('?', '');
     let params = queryString.split('=');

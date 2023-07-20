@@ -1,5 +1,10 @@
+// * React Components
 import React from 'react'
+
+// * Third party Components
 import { useNavigate } from 'react-router-dom';
+
+// * Custom Components
 import GenerateForm from './GenerateForm';
 
 
@@ -13,6 +18,7 @@ const EditData = () => {
     const dataList = () => {
         navigate("/data-list")
     }
+
     return (
         <>
             <div id="carouselExampleRide" className="carousel slide container mt-xl-5" data-bs-ride="true">
